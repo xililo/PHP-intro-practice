@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assests/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assests/plugins/fontawesome/css/all.min.css">
+    <title>New project</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1>Our New Project</h1>
+                <a href="getstarted.html" class="btn btn-primary"> Get Started <i
+                        class="fa-solid fa-arrow-right-to-bracket"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="mb-2">
+                    <label for="">Name:</label>
+                    <input type="text" class="form-control" id="in-name">
+                </div>
+                <div class="mb-2">
+                    <label for="">Age:</label>
+                    <input type="text" class="form-control" id="in-age">
+                </div>
+                <div class="mb-2">
+                    <button onclick="saveValues()" class="btn btn-primary w-100">Save</button>
+                </div>
+                <div class="mt-4">
+                    <p class="fw-bold">
+                        Your name is <span id="f-name"></span>
+                    </p>
+                    <p class="fw-bold">
+                        Your Age is <span id="f-age"></span>
+                    </p>
+                </div>
+                <div class="mt-2">
+                    <div class="mb-2">
+                        <label for="">Type your sentence</label>
+                        <input type="text" class="form-control" id="in-sentence">
+                        <button onclick="genWords()" class="btn btn-outline-primary w-100 mt-2">Generate Words</button>
+                    </div>
+                    <span> You sentente contains <span id="count-char">___</span> characters </span>
+                    <br>
+                    <span> You sentente contains <span id="count">___</span> words </span>
+                    <br>
+                    <span class=" mt-2 fw-bold">Prohibited Words in your sentence:</span>
+                    <p class="border border-1" id="our-data">
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        function saveValues() {
+            // step1: get the input element
+            var nameElem = document.getElementById('in-name');
+            // step2: extract the value from the input element
+            var nameValue = nameElem.value;
+            // step3: get the destination element
+            var destNameElement = document.getElementById('f-name');
+            // step4: change the innertext of the destination element to the the name extracted in step2
+
+
+            if (nameValue.length < 3) {
+                destNameElement.innerText = ' to short.';
+            } else {
+                destNameElement.innerText = ' having ' + nameValue.length + ' characters.';
+
+            }
+
+
+            var AgeElem = document.getElementById('in-age');
+            var agevalue = AgeElem.value;
+            var destAgeElement = document.getElementById('f-age');
+            //destAgeElement.innerText = agevalue;
+            if (isNaN(agevalue)) {
+                destAgeElement.innerText = 'Invalid';
+            } else {
+                destAgeElement.innerText = 'Valid';
+            }
+        }
+
+        function genWords() {
+            var sentenceElem = document.getElementById('in-sentence');
+            var sentenceValue = sentenceElem.value;
+            var someData = sentenceValue.split(' ');
+            var ourDataElem = document.getElementById('our-data');
+            var prohibitedWrord = [
+                'fuck',
+                'sex',
+                'kill',
+                'hate',
+                'die',
+                'beat',
+                'injure'
+            ]
+
+            var allElements = '';
+            //looping
+            someData.forEach(item => {
+                var newElem = '<span>' + item + '</span><br>';
+                if (prohibitedWrord.indexOf(item) != -1) {
+                    allElements += newElem;
+                }
+
+            });
+            ourDataElem.innerHTML = allElements;
+            var countElem = document.getElementById('count');
+            countElem.innerText = someData.length;
+            var countElem2 = document.getElementById('count-char');
+            countElem2.innerText = sentenceValue.length;
+
+        }
+
+    </script>
+</body>
+
+</html>
